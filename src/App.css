@@ -51,6 +51,7 @@ input {
 
 .modal-content {
   background: white;
+  color: black;
   padding: 20px;
   border-radius: 8px;
   max-width: 600px;
