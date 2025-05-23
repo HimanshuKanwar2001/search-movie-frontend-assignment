@@ -66,33 +66,85 @@ function App() {
       </div>
 
       {selectedMovie && (
-        <div className="modal ">
-          <div className="modal-content">
-            <button onClick={() => setSelectedMovie(null)}>Close</button>
-            <h2>
-              {selectedMovie.Title} ({selectedMovie.Year})
-            </h2>
-            <img
-              src={
-                selectedMovie.Poster !== "N/A"
-                  ? selectedMovie.Poster
-                  : "https://via.placeholder.com/300x450"
-              }
-              alt={selectedMovie.Title}
-            />
-            <p>{selectedMovie.Plot}</p>
-            <p>
-              <strong>Director:</strong> {selectedMovie.Director}
-            </p>
-            <p>
-              <strong>Actors:</strong> {selectedMovie.Actors}
-            </p>
-            <p>
-              <strong>Rating:</strong> {selectedMovie.imdbRating}
-            </p>
+  <div className="modal" onClick={() => setSelectedMovie(null)}>
+    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      <div className="modal-header">
+        <h2>{selectedMovie.Title} ({selectedMovie.Year})</h2>
+        <button className="close-btn" onClick={() => setSelectedMovie(null)}>
+          &times;
+        </button>
+      </div>
+      
+      <div className="modal-body">
+        <div className="poster-section">
+          <img
+            src={selectedMovie.Poster !== 'N/A' ? selectedMovie.Poster : 'https://via.placeholder.com/300x450'}
+            alt={selectedMovie.Title}
+          />
+          <div className="quick-info">
+            {selectedMovie.Rated !== 'N/A' && <div className="rating-pill">{selectedMovie.Rated}</div>}
+            <p><strong>Runtime:</strong> {selectedMovie.Runtime}</p>
+            <p><strong>Genre:</strong> {selectedMovie.Genre}</p>
+            <p><strong>Released:</strong> {selectedMovie.Released}</p>
           </div>
         </div>
-      )}
+
+        <div className="details-section">
+          <div className="ratings">
+            <h3>Ratings</h3>
+            <div className="ratings-grid">
+              {selectedMovie.Ratings.map((rating, index) => (
+                <div key={index} className="rating-item">
+                  <span className="rating-source">{rating.Source}</span>
+                  <span className="rating-value">{rating.Value}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="info-grid">
+            <div className="info-row">
+              <span className="info-label">Director:</span>
+              <span className="info-value">{selectedMovie.Director}</span>
+            </div>
+            <div className="info-row">
+              <span className="info-label">Writers:</span>
+              <span className="info-value">{selectedMovie.Writer}</span>
+            </div>
+            <div className="info-row">
+              <span className="info-label">Cast:</span>
+              <span className="info-value">{selectedMovie.Actors}</span>
+            </div>
+            <div className="info-row">
+              <span className="info-label">Language:</span>
+              <span className="info-value">{selectedMovie.Language}</span>
+            </div>
+            <div className="info-row">
+              <span className="info-label">Country:</span>
+              <span className="info-value">{selectedMovie.Country}</span>
+            </div>
+            <div className="info-row">
+              <span className="info-label">Box Office:</span>
+              <span className="info-value">{selectedMovie.BoxOffice}</span>
+            </div>
+          </div>
+
+          <div className="plot-section">
+            <h3>Plot</h3>
+            <p>{selectedMovie.Plot}</p>
+          </div>
+
+          {selectedMovie.Awards !== 'N/A' && (
+            <div className="awards-section">
+              <h3>Awards</h3>
+              <p>{selectedMovie.Awards}</p>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+)}
     </div>
   );
 }
