@@ -7,7 +7,11 @@ const MovieCard = React.memo(({ movie, onClick }) => (
     onClick={() => onClick(movie.imdbID)}
   >
     <img
-      src={movie.Poster !== "N/A" ? movie.Poster : "https://via.placeholder.com/300x450"}
+      src={
+        movie.Poster !== "N/A"
+          ? movie.Poster
+          : "https://via.placeholder.com/300x450"
+      }
       alt={movie.Title}
       loading="lazy"
       className="h-64 w-full object-cover transition-opacity duration-300 group-hover:opacity-90"
@@ -31,7 +35,9 @@ const MovieModal = React.memo(({ selectedMovie, onClose, isLoading }) => {
     if (!value || value === "N/A") return null;
     return (
       <div className="flex justify-between py-2 odd:bg-gray-50 dark:odd:bg-gray-700/30">
-        <span className="font-medium text-gray-700 dark:text-gray-200">{label}</span>
+        <span className="font-medium text-gray-700 dark:text-gray-200">
+          {label}
+        </span>
         <span className="text-gray-600 dark:text-gray-300">{value}</span>
       </div>
     );
@@ -52,15 +58,27 @@ const MovieModal = React.memo(({ selectedMovie, onClose, isLoading }) => {
       >
         <div className="flex items-center justify-between border-b p-6 dark:border-gray-700">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
-            {isLoading ? "Loading..." : `${selectedMovie.Title} (${selectedMovie.Year})`}
+            {isLoading
+              ? "Loading..."
+              : `${selectedMovie.Title} (${selectedMovie.Year})`}
           </h2>
           <button
             className="rounded-full p-2 text-gray-500 transition hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white"
             onClick={onClose}
             aria-label="Close modal"
           >
-            <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg
+              className="h-8 w-8"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
         </div>
@@ -75,7 +93,11 @@ const MovieModal = React.memo(({ selectedMovie, onClose, isLoading }) => {
               {/* Rest of the modal content */}
               <div className="lg:w-1/3">
                 <img
-                  src={selectedMovie.Poster !== "N/A" ? selectedMovie.Poster : "https://via.placeholder.com/300x450"}
+                  src={
+                    selectedMovie.Poster !== "N/A"
+                      ? selectedMovie.Poster
+                      : "https://via.placeholder.com/300x450"
+                  }
                   alt={`Poster for ${selectedMovie.Title}`}
                   className="rounded-lg shadow-lg"
                 />
@@ -88,7 +110,10 @@ const MovieModal = React.memo(({ selectedMovie, onClose, isLoading }) => {
                   {renderDetailRow("Runtime", selectedMovie.Runtime)}
                   {renderDetailRow("Genre", selectedMovie.Genre)}
                   {renderDetailRow("Released", selectedMovie.Released)}
-                  {renderDetailRow("Box Office", formatCurrency(selectedMovie.BoxOffice))}
+                  {renderDetailRow(
+                    "Box Office",
+                    formatCurrency(selectedMovie.BoxOffice)
+                  )}
                   {renderDetailRow("IMDb Rating", selectedMovie.imdbRating)}
                   {renderDetailRow("Metascore", selectedMovie.Metascore)}
                 </div>
@@ -96,20 +121,30 @@ const MovieModal = React.memo(({ selectedMovie, onClose, isLoading }) => {
 
               <div className="flex-1 space-y-6 lg:ml-6">
                 <div>
-                  <h3 className="mb-4 text-xl font-semibold text-gray-900 dark:text-white">Plot</h3>
-                  <p className="text-gray-600 dark:text-gray-300">{selectedMovie.Plot}</p>
+                  <h3 className="mb-4 text-xl font-semibold text-gray-900 dark:text-white">
+                    Plot
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-300">
+                    {selectedMovie.Plot}
+                  </p>
                 </div>
 
                 <div>
-                  <h3 className="mb-4 text-xl font-semibold text-gray-900 dark:text-white">Ratings</h3>
-                  <div className="grid gap-4 md:grid-cols-2">
+                  <h3 className="mb-4 text-xl font-semibold text-gray-900 dark:text-white">
+                    Ratings
+                  </h3>
+                  <div className="grid gap-4 md:grid-cols-1">
                     {selectedMovie.Ratings?.map((rating, index) => (
                       <div
                         key={`${rating.Source}-${index}`}
                         className="rounded-lg bg-gray-50 p-4 dark:bg-gray-700"
                       >
-                        <div className="font-medium text-gray-700 dark:text-gray-200">{rating.Source}</div>
-                        <div className="text-lg text-gray-900 dark:text-white">{rating.Value}</div>
+                        <div className="font-medium text-gray-700 dark:text-gray-200">
+                          {rating.Source}
+                        </div>
+                        <div className="text-lg text-gray-900 dark:text-white">
+                          {rating.Value}
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -117,14 +152,20 @@ const MovieModal = React.memo(({ selectedMovie, onClose, isLoading }) => {
 
                 {selectedMovie.Awards !== "N/A" && (
                   <div className="rounded-lg bg-yellow-50 p-4 dark:bg-yellow-800/20">
-                    <h3 className="mb-2 text-xl font-semibold text-gray-900 dark:text-white">🏆 Awards</h3>
-                    <p className="text-gray-600 dark:text-yellow-200">{selectedMovie.Awards}</p>
+                    <h3 className="mb-2 text-xl font-semibold text-gray-900 dark:text-white">
+                      🏆 Awards
+                    </h3>
+                    <p className="text-gray-600 dark:text-yellow-200">
+                      {selectedMovie.Awards}
+                    </p>
                   </div>
                 )}
 
-                <div className="grid gap-4 md:grid-cols-2">
+                <div className="grid gap-4 md:grid-cols-1">
                   <div>
-                    <h3 className="mb-4 text-xl font-semibold text-gray-900 dark:text-white">Details</h3>
+                    <h3 className="mb-4 text-xl font-semibold text-gray-900 dark:text-white">
+                      Details
+                    </h3>
                     <div className="rounded-lg border bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
                       {renderDetailRow("Director", selectedMovie.Director)}
                       {renderDetailRow("Writers", selectedMovie.Writer)}
@@ -172,9 +213,12 @@ function App() {
         }
         cancelToken.current = axios.CancelToken.source();
 
-        const response = await axios.get(`${apiUrl}/api/search?title=${search}`, {
-          cancelToken: cancelToken.current.token,
-        });
+        const response = await axios.get(
+          `${apiUrl}/api/search?title=${search}`,
+          {
+            cancelToken: cancelToken.current.token,
+          }
+        );
 
         if (response.data.Search) {
           setMovies(response.data.Search);
@@ -259,7 +303,11 @@ function App() {
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {movies.map((movie) => (
-            <MovieCard key={movie.imdbID} movie={movie} onClick={showMovieDetails} />
+            <MovieCard
+              key={movie.imdbID}
+              movie={movie}
+              onClick={showMovieDetails}
+            />
           ))}
         </div>
       </main>
