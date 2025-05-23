@@ -26,7 +26,7 @@ function App() {
 
   const showMovieDetails = (id) => {
     axios
-      .get(`http://localhost:3001/api/movie/${id}`)
+      .get(`${apiUrl}/api/movie/${id}`)
       .then((res) => setSelectedMovie(res.data));
   };
 
